@@ -16,9 +16,8 @@ inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen)
 	masklo	=~maskhi&PORTB;
 	maskhi |= PORTB;
 	
-
+	curbyte=*data++;
 	while (datlen--) {
-		curbyte=*data++;
 		
 		asm volatile(
 		"       ldi   %0,8  \n\t"

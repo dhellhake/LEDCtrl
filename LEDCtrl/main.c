@@ -6,6 +6,7 @@
  */
 #define F_CPU 16000000UL
 #define ADC_LSB			5.0f / 1024.0f
+#define LED_COUNT		(30 * 6)
  
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -43,12 +44,12 @@ ISR(TIMER0_COMPA_vect)
 			case INIT:
 			if (adc_val > 2.5f)
 			{
-				ws2812_sendarray_mask(led_on, 1 * 3);
+				ws2812_sendarray_mask(led_on, LED_COUNT * 3);
 				daytime = NIGHT;
 			}
 			else
 			{
-				ws2812_sendarray_mask(led_off, 1 * 3);
+				ws2812_sendarray_mask(led_off, LED_COUNT * 3);
 				daytime = DAY;
 			}
 			break;
@@ -60,7 +61,7 @@ ISR(TIMER0_COMPA_vect)
 				
 				if (tgl > 1)
 				{
-					ws2812_sendarray_mask(led_on, 1 * 3);
+					ws2812_sendarray_mask(led_on, LED_COUNT * 3);
 					tgl = 0;
 					daytime = NIGHT;
 				}
@@ -73,7 +74,7 @@ ISR(TIMER0_COMPA_vect)
 			
 				if (tgl > 1)
 				{
-					ws2812_sendarray_mask(led_off, 1 * 3);
+					ws2812_sendarray_mask(led_off, LED_COUNT * 3);
 					tgl = 0;
 					daytime = DAY;
 				}
